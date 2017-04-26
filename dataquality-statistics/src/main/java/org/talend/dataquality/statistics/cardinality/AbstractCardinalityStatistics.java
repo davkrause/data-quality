@@ -29,5 +29,5 @@ public abstract class AbstractCardinalityStatistics<T extends AbstractCardinalit
 
     public abstract void merge(T other) throws CardinalityMergeException;
 
-    public abstract void add(String colStr);
+    public abstract void add(Object colObj);
 }
