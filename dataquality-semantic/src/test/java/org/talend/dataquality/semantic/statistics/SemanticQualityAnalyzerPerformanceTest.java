@@ -15,12 +15,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.talend.dataquality.common.inference.Analyzer;
 import org.talend.dataquality.common.inference.Analyzers;
-import org.talend.dataquality.common.inference.ValueQualityStatistics;
 import org.talend.dataquality.common.inference.Analyzers.Result;
+import org.talend.dataquality.common.inference.ValueQualityStatistics;
 import org.talend.dataquality.semantic.index.utils.DictionaryGenerationSpec;
 import org.talend.dataquality.semantic.index.utils.SemanticDictionaryGenerator;
 import org.talend.dataquality.semantic.recognizer.CategoryRecognizerBuilder;
@@ -29,7 +28,7 @@ public class SemanticQualityAnalyzerPerformanceTest {
 
     private static CategoryRecognizerBuilder builder;
 
-    private static int RECORD_LINES_NUMBER = 500000;
+    private static int RECORD_LINES_NUMBER = 1;
 
     private static final String BIG_FILE_PATH = "src/test/resources/org/talend/dataquality/semantic/statistics/validation_big_file.csv";
 
@@ -74,7 +73,6 @@ public class SemanticQualityAnalyzerPerformanceTest {
     }
 
     @Test
-    @Ignore
     public void testSemanticQualityAnalyzerWithDictionaryCategory() {
         String[] a = new String[EXPECTED_CATEGORIES_DICT.length];
         for (int i = 0; i < EXPECTED_CATEGORIES_DICT.length; i++) {
@@ -89,8 +87,14 @@ public class SemanticQualityAnalyzerPerformanceTest {
         );
 
         long time = System.currentTimeMillis();
+        int j = 0;
         for (String[] record : records) {
             analyzers.analyze(record);
+            j++;
+            if (j % 1000 == 0) {
+                System.out.println("j = " + j);
+                System.out.println("took: = " + (System.currentTimeMillis() - time) + " ms");
+            }
         }
         final List<Result> result = analyzers.getResult();
         System.out.println("Result = " + (System.currentTimeMillis() - time) + " ms");

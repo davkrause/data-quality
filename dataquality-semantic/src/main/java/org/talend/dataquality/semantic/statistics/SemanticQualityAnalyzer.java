@@ -55,8 +55,18 @@ public class SemanticQualityAnalyzer extends QualityAnalyzer<ValueQualityStatist
     public SemanticQualityAnalyzer(CategoryRecognizerBuilder builder, String[] types, boolean isStoreInvalidValues) {
         this.isStoreInvalidValues = isStoreInvalidValues;
         this.builder = builder;
-        setTypes(types);
         init();
+        setTypes(types);
+    }
+
+    @Override
+    public void setTypes(String[] types) {
+        List<String> idList = new ArrayList<>();
+        for (String type : types) {
+            DQCategory dqCat = crm.getCategoryMetadataByName(type);
+            idList.add(dqCat.getId());
+        }
+        super.setTypes(idList.toArray(new String[idList.size()]));
     }
 
     public SemanticQualityAnalyzer(CategoryRecognizerBuilder builder, String... types) {
@@ -120,15 +130,8 @@ public class SemanticQualityAnalyzer extends QualityAnalyzer<ValueQualityStatist
         return true;
     }
 
-    private void analyzeValue(String catName, String value, ValueQualityStatistics valueQuality) {
-        DQCategory category = null;
-        for (String id : CategoryRegistryManager.getInstance().getCategoryIds()) {
-            DQCategory tmp = CategoryRegistryManager.getInstance().getCategoryMetadataById(id);
-            if (catName.equals(tmp.getName())) {
-                category = tmp;
-                break;
-            }
-        }
+    private void analyzeValue(String catId, String value, ValueQualityStatistics valueQuality) {
+        DQCategory category = crm.getCategoryMetadataById(catId);
         if (category == null) {
             valueQuality.incrementValid();
             return;
