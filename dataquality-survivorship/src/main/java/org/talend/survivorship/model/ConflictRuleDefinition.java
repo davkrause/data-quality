@@ -17,9 +17,9 @@ package org.talend.survivorship.model;
  */
 public class ConflictRuleDefinition extends RuleDefinition {
 
-    private String fillColumn;
+    private final String fillColumn;
 
-    private boolean duplicateSurCheck;
+    private final boolean duplicateSurCheck;
 
     /**
      * create by zshen constructor of ConflictRuleDefinition .

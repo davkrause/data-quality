@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class SubDataSet extends DataSet {
 
-    private List<Integer> dataSetIndex;
+    private final List<Integer> dataSetIndex;
 
     /**
      * Create by zshen Create a new sub dataset.

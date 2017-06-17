@@ -31,19 +31,19 @@ import org.talend.survivorship.action.SurvivedValuePassAction;
  */
 public class RuleDefinition {
 
-    private Order order;
+    private final Order order;
 
-    private String ruleName;
+    private final String ruleName;
 
-    private String targetColumn;
+    private final String targetColumn;
 
-    private Function function;
+    private final Function function;
 
-    private String referenceColumn;
+    private final String referenceColumn;
 
-    private String operation;
+    private final String operation;
 
-    private boolean ignoreBlanks;
+    private final boolean ignoreBlanks;
 
     /**
      * @param order
