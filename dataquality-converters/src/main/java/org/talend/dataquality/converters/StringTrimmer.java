@@ -61,7 +61,7 @@ public class StringTrimmer {
             return inputStr;
         }
 
-        String result = inputStr;
+        String result = inputStr.trim();
         while (StringUtils.startsWithAny(result, WHITESPACE_CHARS)) {
             result = StringUtils.removeStart(result, result.substring(0, 1));
         }
